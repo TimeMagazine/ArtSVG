@@ -38,6 +38,7 @@
     function Mode() {
     }
 
+    Mode.NONE = 'none';
     Mode.SELECT = 'select';
     Mode.DRAW   = 'draw';
 

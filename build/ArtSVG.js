@@ -106,6 +106,9 @@
 
             isDown = true;
 
+            if (self.mode === ArtSVG.Mode.NONE) {
+                return;
+            }
             if (self.mode === ArtSVG.Mode.SELECT) {
                 _select(event);
             } else {
@@ -121,6 +124,9 @@
             // for Touch Panel
             event.preventDefault();
 
+            if (self.mode === ArtSVG.Mode.NONE) {
+                return;
+            }
             if (self.mode === ArtSVG.Mode.SELECT) {
                 _select(event);
             } else {
@@ -135,6 +141,9 @@
 
             isDown = false;
 
+            if (self.mode === ArtSVG.Mode.NONE) {
+                return;
+            }
             if (self.mode === ArtSVG.Mode.SELECT) {
                 _select(event);
             } else {
@@ -479,6 +488,7 @@
         function Mode() {
         }
 
+        Mode.NONE   = 'none';
         Mode.SELECT = 'select';
         Mode.DRAW   = 'draw';
 
@@ -1491,15 +1501,27 @@
 
             if (event.pageX) {
                 // Desktop
+                var position = event;
             } else if (event.touches[0]) {
                 // Touch Panel
-                event = event.touches[0];
+                var position = event.touches[0];
             } else if (event.changedTouches[0]) {
                 // Touch Panel
-                event = event.changedTouches[0];
+                var position = event.changedTouches[0];
             }
 
-            return event.pageX - container.offsetLeft + container.scrollLeft;
+            if (position.layerX) {
+                return position.layerX - container.offsetLeft + container.scrollLeft;
+            }
+
+            var x = position.offsetX;
+
+            if (typeof x === 'undefined') {
+                var rect = container.getBoundingClientRect();
+                x = position.clientX + document.documentElement.scrollLeft - rect.left;
+            }
+
+            return x;
         };
 
         /**
@@ -1519,15 +1541,27 @@
 
             if (event.pageY) {
                 // Desktop
+                var position = event;
             } else if (event.touches[0]) {
                 // Touch Panel
-                event = event.touches[0];
+                var position = event.touches[0];
             } else if (event.changedTouches[0]) {
                 // Touch Panel
-                event = event.changedTouches[0];
+                var position = event.changedTouches[0];
             }
 
-            return event.pageY - container.offsetTop + container.scrollTop;
+            if (position.layerY) {
+                return position.layerY - container.offsetTop + container.scrollTop;
+            }
+
+            var y = position.offsetY;
+
+            if (typeof x === 'undefined') {
+                var rect = container.getBoundingClientRect();
+                y = position.clientY + document.documentElement.scrollTop - rect.top;
+            }
+
+            return y;
         };
 
         /**

@@ -96,6 +96,9 @@
 
             isDown = true;
 
+            if (self.mode === ArtSVG.Mode.NONE) {
+                return;
+            }
             if (self.mode === Mocks.ArtSVG.Mode.SELECT) {
                 _select(event);
             } else {
@@ -111,6 +114,9 @@
             // for Touch Panel
             event.preventDefault();
 
+            if (self.mode === ArtSVG.Mode.NONE) {
+                return;
+            }
             if (self.mode === Mocks.ArtSVG.Mode.SELECT) {
                 _select(event);
             } else {
@@ -125,6 +131,9 @@
 
             isDown = false;
 
+            if (self.mode === ArtSVG.Mode.NONE) {
+                return;
+            }
             if (self.mode === Mocks.ArtSVG.Mode.SELECT) {
                 _select(event);
             } else {
