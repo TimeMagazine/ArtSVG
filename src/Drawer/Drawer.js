@@ -134,7 +134,7 @@
             case Mocks.ArtSVG.MouseEvents.MOVE :
                 element = document.getElementById(Drawer.ELEMENT_ID_PREFIX + this.numberOfObjects);
 
-                element.setAttribute('d', (element.getAttribute('d') + ', L' + x + ' ' + y));
+                element.setAttribute('d', (element.getAttribute('d') + ', ' + x + ' ' + y));
 
                 break;
             case Mocks.ArtSVG.MouseEvents.END :
